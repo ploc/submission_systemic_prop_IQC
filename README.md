@@ -1,5 +1,9 @@
 # verify-systemic-properties
 
+## Description
+
+Appendix of the submitted paper [[pdf](appendix.pdf)] with a description of the use cases.
+
 ## Dependencies
 
 ### Alt-Ergo with OSDP plugin

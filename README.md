@@ -7,6 +7,7 @@ Appendix of the submitted paper [[pdf](appendix.pdf)] with a description of the 
 ## Dependencies
 
 ### Alt-Ergo with OSDP plugin
+- Z3
 - CSDP (https://github.com/coin-or/Csdp)
 - OSDP: available through opam
   - opam install osdp
@@ -39,7 +40,7 @@ version = ""
 ```
 ## Use
 
-Run
+In examples folder, run
 
 ```
 make
@@ -80,8 +81,34 @@ frama-c -wp -wp-timeout 600 -wp-cache none -wp-model real -wp-prover Alt-Ergo-Po
 [wp] Proved goals:   24 / 24
   Qed:              20  (10ms-48ms-346ms)
   Alt-Ergo-Poly :    4  (17.8s-1'5s) (15667)
-  
+
+frama-c -wp -wp-timeout 600 -wp-cache none -wp-model real -wp-prover z3,alt-ergo,Alt-Ergo-Poly two_mass_model_verification.c
+[kernel] Parsing two_mass_model_validation.c (with preprocessing)
+[kernel:parser:decimal-float] two_mass_model_validation.c:119: Warning: 
+  Floating-point constant 21.28825 is not represented exactly. Will use 0x1.549cac083126fp4.
+  (warn-once: no further messages from category 'parser:decimal-float' will be emitted)
+[wp] Warning: Missing RTE guards
+[wp] 8 goals scheduled
+[wp] Proved goals:    8 / 8
+  Qed:             5  (2ms-8ms-27ms)
+  Alt-Ergo :       1  (74ms) (313)
+  Z3 4.8.7:        2  (20ms-60ms) (186217)
+
+frama-c -wp -wp-timeout 600 -wp-cache none -wp-model real -wp-prover z3,alt-ergo,Alt-Ergo-Poly two_mass_systemic_properties.c
+[kernel] Parsing two_mass_systemic_properties.c (with preprocessing)
+[kernel:parser:decimal-float] two_mass_systemic_properties.c:127: Warning: 
+  Floating-point constant 21.28825 is not represented exactly. Will use 0x1.549cac083126fp4.
+  (warn-once: no further messages from category 'parser:decimal-float' will be emitted)
+[wp] Warning: Missing RTE guards
+[wp] 7 goals scheduled
+[wp] Proved goals:    7 / 7
+  Qed:               5  (3ms-9ms-26ms)
+  Alt-Ergo-Poly :    2  (559ms) (1303)  
+
 ```
 
 Note that the floating point errors have been computed separately.
 
+## Docker
+
+A Docker image is provided. More information is available at [Dockerfile-README.md](Dockerfile-README.md)

@@ -109,6 +109,3 @@ frama-c -wp -wp-timeout 600 -wp-cache none -wp-model real -wp-prover z3,alt-ergo
 
 Note that the floating point errors have been computed separately.
 
-## Docker
-
-A Docker image is provided. More information is available at [Dockerfile-README.md](Dockerfile-README.md)
